@@ -1,0 +1,388 @@
+Driver
+#include "string_class.h"
+#include <iomanip>  //need to use formatting manipulators
+
+/*************************************************************************************
+//Name: Default Constructor
+//Precondition: 
+//Postcondition: 
+//Description: 
+//*************************************************************************************/
+string_class::string_class()
+{
+	current_string = "";
+}
+
+//*************************************************************************************
+//Name: Explicit-value constructor
+//Precondition: 
+//Postcondition: 
+//Description: 
+//*************************************************************************************
+string_class::string_class(const string& s)
+{
+	current_string = s;
+}
+
+//*************************************************************************************
+//Name:
+//Precondition: 
+//Postcondition: 
+//Description:
+//*************************************************************************************
+bool string_class::palindrome()
+{
+	string copy = lowercase(), reversed;
+	int x,y = 0;
+	//reverse the string
+	for (x = copy.length() - 1; x >= 0; --x) {
+		reversed.resize(++y, copy[x]);
+		//^replace reversed[y] with copy[x], then increase to new size {++y}
+	}
+	
+	//if palindrome, return true, else false
+	if (copy == reversed) 
+		{ return true; }
+	else 
+		{ return false; }
+}
+
+//*************************************************************************************
+//Name: 
+//Precondition: 
+//Postcondition:
+//Description: 
+//*************************************************************************************
+void string_class::replace_all(string old_substring, string new_substring)
+{
+	int x, y;
+	if (current_string == "" || old_substring.size() > current_string.size() || locate(old_substring) == -1)
+		cout << "Invalid argument." << endl;
+	else {
+		//while old_substring exist in current_string
+		while (locate(old_substring) != -1)
+		{
+			x = locate(old_substring);								//x holds starting location of old substring
+			shift(x, old_substring.size(), new_substring.size());	//shift string characters to accomodate for new_substring
+			//loop through string to replace instance of old_substring
+			for (y = 0; y < new_substring.size(); ++y)
+			{
+				current_string[x] = new_substring[y];
+				++x;
+			}
+		}
+	}
+}
+
+//*************************************************************************************
+//Name: operator<<
+//Precondition: The Date object has been initialized / declared. 
+//Postcondition: The attributes of the Date object are displayed.
+//Description: This function displays the contents of a Date object, & allows for chaining.
+// EX of chaining: cout << dateObj1 << dateObj2 << dateObj3.
+//*************************************************************************************
+ostream& operator<<(ostream& out, string_class& org)
+{
+	out << org.current_string << endl;
+	return out;//returning object that invoked the function
+}
+
+//*************************************************************************************
+//Name: 
+//Precondition: 
+//Postcondition: The attributes of the Date object are displayed.
+//Description: This function displays the contents of a Date object, & allows for chaining.
+// EX of chaining: cout << dateObj1 << dateObj2 << dateObj3.
+//*************************************************************************************
+string string_class::lowercase()
+{
+	string copy = current_string;
+	int x = 0;
+	//iterate through each character in the string
+	for (x = 0; x < copy.length(); ++x) {
+		//if character is capitalized, make it lowercase
+		if (copy[x] >= 'A' && copy[x] <= 'Z')
+		{
+			copy[x] = tolower(copy[x]);
+		}
+	}
+
+	return copy;
+}
+
+/******************************************************************************************************************************************************
+Name: locate
+Pre-Condition: 
+Post-Condition: 
+Description: this 
+******************************************************************************************************************************************************/
+int string_class::locate( string sub_str)
+{
+	//x->used to record sample, y=starting location of sample, z=sample's size
+	int x, y, z;			//loop variables
+	string sample;			//sample of current_string
+	for (y = 0; y <= current_string.size() - sub_str.size(); ++y)
+	{//^ go through string up until last possible sample 
+		sample = ""; x = y;	z = 0;			//reset variables
+		for (x = y; z < sub_str.size(); ++x)
+		{
+			sample.resize(++z, current_string[x]);
+			//^replace sample[z] with current_string[x], then increase to new size {++z}
+		}
+		//if sample == sub_str, return the location
+		if (sample == sub_str) 
+			{ return y; }
+	}
+	//otherwise, return -1 to represent current_string does NOT contain sub_str
+	return -1;
+}
+
+/******************************************************************************************************************************************************
+Name: locate
+Pre-Condition:
+Post-Condition:
+Description: this
+******************************************************************************************************************************************************/
+void string_class::shift(int location, int old_strsz, int new_strsz)
+{
+	int x,y;								//x = index immediately after end location of old/new sub_string
+	int current_sz = current_string.size();	//current_sz = current string size
+	int diff = new_strsz - old_strsz;		//difference between new & old substring sizes
+
+	//if new_substring > old_substring
+	if (diff > 0) 
+	{//make space
+		current_string.resize(current_sz += diff, ' ');
+		//must shift diff*-1 amount of times
+		for (y = 0; y < diff; ++y)
+		{//because old_substring size is greater, we stop shifting at the end of that string
+			for (x = current_sz-1; x >= location + old_strsz; --x)
+			{//shift characters right
+				current_string[x] = current_string[x - 1];
+			}
+		}
+	}
+	//else if new_substring < old_substring
+	else if (diff < 0) 
+	{//must shift diff*-1 amount of times
+		for (y = 0; y < diff * -1; ++y)
+		{//because new_substring size is greater, we stop shifting at the end of that string
+			for (x = location + new_strsz; x < current_sz; ++x)
+			{//shift characters left
+				current_string[x] = current_string[x + 1];
+			}
+		}
+		current_string.resize(current_sz += diff, ' ');
+		//remove extra characters
+	}
+}
+
+Source File 
+#include "string_class.h"
+#include <iomanip>  //need to use formatting manipulators
+
+/*************************************************************************************
+//Name: Default Constructor
+//Precondition: 
+//Postcondition: 
+//Description: 
+//*************************************************************************************/
+string_class::string_class()
+{
+	current_string = "";
+}
+
+//*************************************************************************************
+//Name: Explicit-value constructor
+//Precondition: 
+//Postcondition: 
+//Description: 
+//*************************************************************************************
+string_class::string_class(const string& s)
+{
+	current_string = s;
+}
+
+//*************************************************************************************
+//Name:
+//Precondition: 
+//Postcondition: 
+//Description:
+//*************************************************************************************
+bool string_class::palindrome()
+{
+	string copy = lowercase(), reversed;
+	int x,y = 0;
+	//reverse the string
+	for (x = copy.length() - 1; x >= 0; --x) {
+		reversed.resize(++y, copy[x]);
+		//^replace reversed[y] with copy[x], then increase to new size {++y}
+	}
+	
+	//if palindrome, return true, else false
+	if (copy == reversed) 
+		{ return true; }
+	else 
+		{ return false; }
+}
+
+//*************************************************************************************
+//Name: 
+//Precondition: 
+//Postcondition:
+//Description: 
+//*************************************************************************************
+void string_class::replace_all(string old_substring, string new_substring)
+{
+	int x, y;
+	if (current_string == "" || old_substring.size() > current_string.size() || locate(old_substring) == -1)
+		cout << "Invalid argument." << endl;
+	else {
+		//while old_substring exist in current_string
+		while (locate(old_substring) != -1)
+		{
+			x = locate(old_substring);								//x holds starting location of old substring
+			shift(x, old_substring.size(), new_substring.size());	//shift string characters to accomodate for new_substring
+			//loop through string to replace instance of old_substring
+			for (y = 0; y < new_substring.size(); ++y)
+			{
+				current_string[x] = new_substring[y];
+				++x;
+			}
+		}
+	}
+}
+
+//*************************************************************************************
+//Name: operator<<
+//Precondition: The Date object has been initialized / declared. 
+//Postcondition: The attributes of the Date object are displayed.
+//Description: This function displays the contents of a Date object, & allows for chaining.
+// EX of chaining: cout << dateObj1 << dateObj2 << dateObj3.
+//*************************************************************************************
+ostream& operator<<(ostream& out, string_class& org)
+{
+	out << org.current_string << endl;
+	return out;//returning object that invoked the function
+}
+
+//*************************************************************************************
+//Name: 
+//Precondition: 
+//Postcondition: The attributes of the Date object are displayed.
+//Description: This function displays the contents of a Date object, & allows for chaining.
+// EX of chaining: cout << dateObj1 << dateObj2 << dateObj3.
+//*************************************************************************************
+string string_class::lowercase()
+{
+	string copy = current_string;
+	int x = 0;
+	//iterate through each character in the string
+	for (x = 0; x < copy.length(); ++x) {
+		//if character is capitalized, make it lowercase
+		if (copy[x] >= 'A' && copy[x] <= 'Z')
+		{
+			copy[x] = tolower(copy[x]);
+		}
+	}
+
+	return copy;
+}
+
+/******************************************************************************************************************************************************
+Name: locate
+Pre-Condition: 
+Post-Condition: 
+Description: this 
+******************************************************************************************************************************************************/
+int string_class::locate( string sub_str)
+{
+	//x->used to record sample, y=starting location of sample, z=sample's size
+	int x, y, z;			//loop variables
+	string sample;			//sample of current_string
+	for (y = 0; y <= current_string.size() - sub_str.size(); ++y)
+	{//^ go through string up until last possible sample 
+		sample = ""; x = y;	z = 0;			//reset variables
+		for (x = y; z < sub_str.size(); ++x)
+		{
+			sample.resize(++z, current_string[x]);
+			//^replace sample[z] with current_string[x], then increase to new size {++z}
+		}
+		//if sample == sub_str, return the location
+		if (sample == sub_str) 
+			{ return y; }
+	}
+	//otherwise, return -1 to represent current_string does NOT contain sub_str
+	return -1;
+}
+
+/******************************************************************************************************************************************************
+Name: locate
+Pre-Condition:
+Post-Condition:
+Description: this
+******************************************************************************************************************************************************/
+void string_class::shift(int location, int old_strsz, int new_strsz)
+{
+	int x,y;								//x = index immediately after end location of old/new sub_string
+	int current_sz = current_string.size();	//current_sz = current string size
+	int diff = new_strsz - old_strsz;		//difference between new & old substring sizes
+
+	//if new_substring > old_substring
+	if (diff > 0) 
+	{//make space
+		current_string.resize(current_sz += diff, ' ');
+		//must shift diff*-1 amount of times
+		for (y = 0; y < diff; ++y)
+		{//because old_substring size is greater, we stop shifting at the end of that string
+			for (x = current_sz-1; x >= location + old_strsz; --x)
+			{//shift characters right
+				current_string[x] = current_string[x - 1];
+			}
+		}
+	}
+	//else if new_substring < old_substring
+	else if (diff < 0) 
+	{//must shift diff*-1 amount of times
+		for (y = 0; y < diff * -1; ++y)
+		{//because new_substring size is greater, we stop shifting at the end of that string
+			for (x = location + new_strsz; x < current_sz; ++x)
+			{//shift characters left
+				current_string[x] = current_string[x + 1];
+			}
+		}
+		current_string.resize(current_sz += diff, ' ');
+		//remove extra characters
+	}
+}
+
+H File
+//string_class.h
+#pragma once			//include the source file only once in a single compilation
+#include <iostream>		//standard c++ library for cout/cin 
+#include <fstream>		//file manipulation library
+#include <string>		//string manipulation library
+
+using namespace std;	//standard namespace convention
+
+#ifndef string_class_h			//if header file is not defined
+#define string_class_h			//define it 
+
+class string_class {
+public:
+	string_class();						//defualt constructor: current_string = ""
+	string_class(const string& s);		//explicit-value constructor: current_string = {explicit value}
+	bool palindrome();					//bool function: returns true if current_string reads the same as it does backwards
+	void replace_all(string old_substring, string new_substring);	
+	//^function to replace old_substring with new_substring in current_string
+	string lowercase();					//returns the lowercase of current_string
+	int locate(string sub_str);			//returns location of sub_str within current_string
+	void shift( int location, int old_strsz, int new_strsz);//function: supports replace_all.
+	//^uses old_substring's & new_substring's sizes & old_substring location to modify current_string
+
+private:
+	string current_string = "";
+	friend ostream& operator<<(ostream& out, string_class& org);	//overloading << 
+};
+
+#endif

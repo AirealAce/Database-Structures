@@ -1,0 +1,5 @@
+﻿  sentence.cpp
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530 Data Structures\sentence_driver\sentence.cpp(134,20): warning C4018: '<': signed/unsigned mismatch
+  sentence_driver.cpp
+  Generating Code...
+  sentence_driver.vcxproj -> C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530 Data Structures\sentence_driver\Debug\sentence_driver.exe

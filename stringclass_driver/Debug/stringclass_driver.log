@@ -1,0 +1,8 @@
+﻿  string_class.cpp
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530\stringclass_driver\string_class.cpp(68,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530\stringclass_driver\string_class.cpp(106,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530\stringclass_driver\string_class.cpp(129,25): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530\stringclass_driver\string_class.cpp(132,17): warning C4018: '<': signed/unsigned mismatch
+  stringclass_driver.cpp
+  Generating Code...
+  stringclass_driver.vcxproj -> C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530\stringclass_driver\Debug\stringclass_driver.exe

@@ -1,0 +1,6 @@
+﻿  infix.cpp
+  stack.cpp
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530 Data Structures\infix\stack.cpp(133,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530 Data Structures\infix\stack.cpp(157,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  infix.vcxproj -> C:\Users\Aaron Mills\Desktop\Code\C++\Assignments\COP3530 Data Structures\infix\Debug\infix.exe
